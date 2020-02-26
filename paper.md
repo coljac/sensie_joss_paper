@@ -19,9 +19,9 @@ bibliography: paper.bib
 
 # Introduction 
 
-Deep neural networks (DNNs) are finding increasing application across a wide variety of fields, including in industry and scientific research. Although DNNs are able to successfully tackle data problems that proved intractable to other methods, for instance in computer vision, they suffer from a lack of interpretability. DNNs excel at creating extremely non-linear mappings between input and output spaces, and since such a network may have up to a billion trainable parameters or even more, understanding the reasons behind a classification, output or decision is far from straight forward. In applications such as finance, science and medicine, better understanding the reasons for a decision, and the weaknesses in a model, is an issue of increasing focus.
+Deep neural networks (DNNs) are finding increasing application across a wide variety of fields, including in industry and scientific research. Although DNNs are able to successfully tackle data problems that proved intractable to other methods, for instance in computer vision, they suffer from a lack of interpretability. DNNs excel at creating extremely non-linear mappings between input and output spaces, and since such a network may have up to a billion trainable parameters or even more, understanding the reasons behind a classification, output or decision is far from straight forward. In applications such as finance, science and medicine, better understanding the reasons for a decision, and the weaknesses in a model, is an issue of increasing focus [see for example @montavonMethodsInterpretingUnderstanding2018].
 
-Some well-known methods for visualising and interpreting the outputs of DNNs include directly inspecting the learned features of a model directly (e.g. convolutional kernels and activation maps); or producing "saliency maps" which allow a human researcher to inspect which parts of an input (such as an image) played the most crucial role in the model reaching a particular determination. These algorithms include occluding parts of an image [@zeilerVisualizingUnderstandingConvolutional2014], guided backpropagation [@simonyanDeepConvolutionalNetworks2013], SmoothGrad [@smilkovSmoothGradRemovingNoise2017], Layer-wise relevance propagation [@binderLayerwiseRelevancePropagation2016].
+Some well-known methods for visualising and interpreting the outputs of DNNs include directly inspecting the learned features of a model directly (e.g. convolutional kernels and activation maps); or producing "saliency maps" which allow a human researcher to inspect which parts of an input (such as an image) played the most crucial role in the model reaching a particular determination. These algorithms include occluding parts of an image [@zeilerVisualizingUnderstandingConvolutional2014], guided backpropagation [@simonyanDeepConvolutionalNetworks2013], and more complex algorithms such as SmoothGrad [@smilkovSmoothGradRemovingNoise2017] and Layer-wise relevance propagation [@binderLayerwiseRelevancePropagation2016].
 
 However, simply inspecting the most salient regions of an input image (or other input) may not always be sufficiently interpretable. This may be particularly true in a scientific context, where the physical properties of or relating to an input value are highly significant to the task at hand. Inspecting a saliency map may indicate that the network is using a subset of the input more than others, but from this it is challenging to draw conclusions about the robustness of the model. 
 
@@ -43,11 +43,12 @@ Here we present ``Sensie``, a tool to quickly inspect, and quantify, the sensiti
 
 **B)** Using a perturber function $f_{\textrm{perturb}}(\boldsymbol{x}, p)$ applied to the test set, where the magnitude of perturbation is parameterised by $p$:
 
-1. For each value of $p$ to be tested, $p_j$, transform the test set such that $X'_j = f_{\textrm{perturb}}(X_\textrm{test}, p_j)$.
-2. Collect predictions from the model for $X'_j$ (using ``model.predict()`` or a user-supplied method), and note the scores for the correct classes.
-3. Calculate the mean score $\bar{s}$ in the correct class for each $p_j$, and the standard deviation.
-4. Plot $\bar{s}$ as a function of $p$.
-5. Estimate the significance of the effect using Bayesian linear regression, producing a scalar value representing $\partial \bar{s}/\partial p$, with 50% and 95% credible intervals.
+1. Choose discrete values of $p$ to be tested.
+2. For each value of $p$ to be tested, $p_j$, transform the test set such that $X'_j = f_{\textrm{perturb}}(X_\textrm{test}, p_j)$.
+3. Collect predictions from the model for $X'_j$ (using ``model.predict()`` or a user-supplied method), and note the scores for the correct classes.
+4. Calculate the mean score $\bar{s}$ in the correct class for each $p_j$, and the standard deviation.
+5. Plot $\bar{s}$ as a function of $p$.
+6. Estimate the significance of the effect using Bayesian linear regression, producing a scalar value representing $\partial \bar{s}/\partial p$, with 50% and 95% credible intervals.
 
 In the first case, A), ``Sensie`` can optionally forego binning by P, and treat every element as a data point in determining the trend.
 
