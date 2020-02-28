@@ -66,4 +66,4 @@ The sensitivity to any given property, i.e. the curve $\bar{s}$ vs $p$, may not 
 
 # References
 
-[^bayesian]: https://docs.pymc.io/notebooks/GLM-linear.html
+[^bayesian]: See https://docs.pymc.io/notebooks/GLM-linear.html for an example using the PyMC3 probabilistic programming framework.
