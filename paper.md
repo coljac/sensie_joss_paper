@@ -36,19 +36,19 @@ Here we present ``Sensie``, a tool to quickly inspect, and quantify, the sensiti
 **A)** Using data or metadata: a scalar property $p$ of the test set $X_{\textrm{test}}$, such that each example $\boldsymbol{x}_i$ has a corresponding value $p_i$ and a supplied ground truth $\hat{y}$:
 
 1. Segment the data into bins by $p$.
-2. Collect predictions from the model (using ``model.predict()`` or a user-supplied function), and note the scores for the correct classes.
+2. Collect predictions from the model (using ``model.predict()`` or a user-supplied function), and note the scores for the correct classes $\hat{y}$.
 3. Calculate the mean score $\bar{s}$ in the correct class for each bin, and the standard deviation.
 4. Plot $\bar{s}$ as a function of $p$.
 5. Estimate the significance of the effect using Bayesian linear regression, producing a scalar value representing $\partial \bar{s}/\partial p$, with 50% and 95% credible intervals.
 
-**B)** Using a perturber function $f_{\textrm{perturb}}(\boldsymbol{x}, p)$ applied to the test set, where the magnitude of perturbation is parameterised by $p$:
+**B)** Using a perturber function $f_{\textrm{perturb}}(\boldsymbol{x}, p)$---an arbitrary transformation of the inputs---applied to the test set, where the magnitude of perturbation is parameterised by $p$:
 
 1. Choose discrete values of $p$ to be tested.
 2. For each value of $p$ to be tested, $p_j$, transform the test set such that $X'_j = f_{\textrm{perturb}}(X_\textrm{test}, p_j)$.
-3. Collect predictions from the model for $X'_j$ (using ``model.predict()`` or a user-supplied method), and note the scores for the correct classes.
+3. Collect predictions from the model for $X'_j$ (using ``model.predict()`` or a user-supplied method), and note the scores for the correct classes, $\hat{y}$.
 4. Calculate the mean score $\bar{s}$ in the correct class for each $p_j$, and the standard deviation.
 5. Plot $\bar{s}$ as a function of $p$.
-6. Estimate the significance of the effect using Bayesian linear regression, producing a scalar value representing $\partial \bar{s}/\partial p$, with 50% and 95% credible intervals.
+6. Estimate the significance of the effect using Bayesian linear regression[^bayesian], producing a scalar value representing $\partial \bar{s}/\partial p$, with 50% and 95% credible intervals.
 
 In the first case, A), ``Sensie`` can optionally forego binning by P, and treat every element as a data point in determining the trend.
 
@@ -66,3 +66,4 @@ The sensitivity to any given property, i.e. the curve $\bar{s}$ vs $p$, may not 
 
 # References
 
+[^bayesian] https://docs.pymc.io/notebooks/GLM-linear.html
