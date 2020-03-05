@@ -54,7 +54,7 @@ In the first case, A), ``Sensie`` can optionally forego binning by P, and treat 
 
 By this method, ``Sensie`` helps the model user to quickly identify sensitivities of the accuracy to various properties of the input. This may identify deficiencies in the training set; for instance, if we expect an image classifier to be robust under a particular transformation such as rotation or translation, ``Sensie`` can quickly quantify whether such a transformation has a statistically significant effect on the accuracy across the test set. Figure 1 shows two examples; on the left, an output plot from ``Sensie`` showing the sensitivity of a trained model to rotation of the input images; the fact that the curve is not flat indicates that the model is highly sensitive to input orientation and that this is a significant feature (or bug) of the training process. On the right, the sensitivity of a trained model to a Gaussian blur applied to the model, along with a fit indicating the magnitude of the effect.
 
-![Left: Output from ``Sensie`` for a model trained to recognise handwritten digits, testing model sensitivity to rotation. Error bars show the standard deviation for the mean ground-truth-class score. Right: Sensitivity of a model to a property of the input data, showing a fit to a significant region.](sensie_examples.png)
+![Left: Output from ``Sensie`` for a model trained to recognise handwritten digits, testing model sensitivity to rotation. Error bars show the standard deviation for the mean ground-truth-class score. Right: Sensitivity of a model to ann applied blir of the input image data, showing a linear fit to a significant region.](sensie_examples.png)
 
 # Discussion and conclusion
 
